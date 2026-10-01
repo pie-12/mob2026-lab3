@@ -1,27 +1,32 @@
-# User Experience Feedback & Custom Profile
+# User Experience Taste Catalog & Evaluation Log
 
 **Skill:** `ui-ux-pro-max`  
-**User Rating:** **8.8 / 10** ⭐⭐⭐⭐⭐  
 **Evaluator:** Nguyễn Tùng Lâm (pie-12)  
-**Date:** 2026-10-01  
 **Project:** VKU Expense Tracker (MOB2026 - Mini-Project 3)  
-**Live Site:** https://pie-12.github.io/mob2026-lab3/  
+**Date:** 2026-10-01  
 
 ---
 
-## 🎯 Review & Feedback Summary
-> *"đù mẹ nó sao mà đẹp vậy... nhìn kiểu vibe đơn giản cute vintage mềm mại đơn giản mộc mạc nhưng vẫn đẹp... cute nhưng không phải con gái nhé, kiểu cute vintage màu nâu nâu kem kem"*
+## 🧭 Triết lý Trải nghiệm (Exploration Principle)
+> *"bản thân tôi luôn muốn trải nghiệm nhiều cái nhất có thể để có thể càng tìm ra được nhiều cái ngon... thật ra cái điểm này chỉ đánh giá độ yêu thích của tôi hơn là nói nó đẹp hay không"*
 
-The user strongly validated and praised the **Warm Paper Craft & Vintage Notebook** design direction when applied to modern software products, distinguishing it from generic dark-mode cyberpunk / tech neon interfaces.
+- **Mục tiêu:** Không gò bó vào một phong cách duy nhất. Mỗi bài toán / dự án nên linh hoạt thử nghiệm các phong cách thị giác mới lạ (Neo-Brutalism, Swiss Minimal, Bauhaus, Skeuomorphism, Cyberpunk, Paper Craft, Retro Y2K, v.v.).
+- **Bảng điểm thị hiếu (Taste Catalog):** Dùng để lưu trữ độ cảm tình cá nhân của người dùng, đóng vai trò tham khảo / phương án dự phòng tin cậy khi chưa xác định được màu sắc hoặc khi cần một phong cách ấm cúng đã được kiểm chứng.
 
 ---
 
-## 🎨 Recommended User Design Profile: "Warm Paper Craft (Vintage Leather & Coffee)"
-- **Background:** `#F8F5EE` (Cream paper) with subtle 30px micro-grain or dot matrix.
-- **Card Surface:** `#FFFFFF` (Natural white paper) with 1px border `#DCCFB8` or dashed stitch `#C8BAA0`.
-- **Text & Ink:** `#2C241E` (Warm charcoal ink) instead of pure harsh `#000000`.
-- **Primary Accent:** `#5C4033` (Espresso brown / saddle leather) & `#3F2A1E` (Dark roast for buttons).
-- **Secondary Accents:** `#C25E3E` (Vintage terracotta wax seal) and `#3F624C` (Forest sage green).
-- **Typography Pairing:** `DM Serif Display` (Headings) + `Plus Jakarta Sans` (UI / Body) + `JetBrains Mono` (Numeric data & codes).
-- **Tactile Accents:** Washi tape banners, deckle borders, retro postal stamps, thermal receipt simulated paper.
-- **Rule:** Keep it rustic, warm, and tactile; strictly avoid bright neon gradients, high-saturation pinks, or overly soft feminine pastels.
+## 📊 Bảng Đánh Giá Độ Yêu Thích Theo Phong Cách (Taste Ratings)
+
+### 1. Dark OLED / Futuristic Tech / Fintech Neon Glow
+- **Đánh giá cá nhân:** **6.5 / 10**
+- **Cảm nhận:** Thiết kế công nghệ rất bóng bẩy, hiện đại, chuẩn chỉnh cho các ứng dụng crypto/fintech cao cấp, nhưng không phải gu cảm xúc yêu thích hàng ngày của người dùng.
+- **Tone màu:** Đen OLED `#07090e`, neon blue `#38bdf8`, ngọc lục bảo `#10b981`, kính mờ glassmorphism.
+
+### 2. Warm Paper Craft & Vintage Notebook
+- **Đánh giá cá nhân:** **8.8 / 10** ⭐⭐⭐⭐⭐
+- **Cảm nhận:** Cực kỳ ưng ý và có sự cộng hưởng cảm xúc lớn. Mềm mại, mộc mạc, cảm giác như cuốn sổ tay ghi chép chi tiêu bằng giấy và da thật. Nam tính, ấm áp, tuyệt đối không bị sến súa hay nữ tính.
+- **Tone màu & Chi tiết:** Giấy kem `#F8F5EE`, da bò / cà phê nâu `#5C4033`, chữ mực than nâu `#2C241E`, điểm xuyết đỏ gạch `#C25E3E` và xanh rêu `#3F624C`. Chi tiết washi tape, viền chỉ khâu đứt đoạn, font serif hoài niệm `DM Serif Display`.
+- **Vai trò:** Phương án dự phòng đắc lực (Reliable Fallback) mỗi khi người dùng chưa chọn được phong cách hoặc muốn một giao diện gần gũi, ấm áp.
+
+---
+*Catalog sẽ liên tục được cập nhật thêm các phong cách mới qua từng dự án tiếp theo.*
