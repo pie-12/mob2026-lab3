@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VKU Expense Tracker - Receipt OCR Mobile App</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #10b981;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 520px;
+      width: 100%;
+      background: var(--card);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      border: 1px solid #e2e8f0;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 20px;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 38px;
+      box-shadow: 0 8px 16px rgba(2, 132, 199, 0.3);
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    p.desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .features-list {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: left;
+      margin-bottom: 24px;
+      font-size: 13px;
+      border: 1px solid #e2e8f0;
+    }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: #334155;
+    }
+    .feature-item:last-child {
+      margin-bottom: 0;
+    }
+    .feature-icon {
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .btn-download {
+      display: block;
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(2, 132, 199, 0.35);
+      transition: background 0.2s;
+      margin-bottom: 12px;
+    }
+    .btn-download:hover {
+      background: var(--primary-dark);
+    }
+    .btn-secondary {
+      display: block;
+      width: 100%;
+      background: transparent;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid #cbd5e1;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">VKU MOB2026 · MINI-PROJECT 3</div>
+    <div class="app-icon">🧾</div>
+    <h1>VKU Expense Tracker</h1>
+    <p class="desc">Ứng dụng quét hóa đơn thông minh bằng trí tuệ nhân tạo (Google ML Kit Offline), tự động bóc tách tổng tiền, ngày tháng và vẽ biểu đồ chi tiêu CustomPainter.</p>
+
+    <div class="features-list">
+      <div class="feature-item"><span class="feature-icon">✓</span> <span><b>Quét Offline:</b> Nhận diện chữ không cần Internet bằng On-device ML Kit</span></div>
+      <div class="feature-item"><span class="feature-icon">✓</span> <span><b>Heuristic Regex:</b> Bóc tách chuẩn xác Tổng tiền & Ngày tháng VNĐ</span></div>
+      <div class="feature-item"><span class="feature-icon">✓</span> <span><b>SQLite Nội bộ:</b> Lưu trữ dữ liệu bảo mật trên thiết bị</span></div>
+      <div class="feature-item"><span class="feature-icon">✓</span> <span><b>Canvas 2D:</b> Biểu đồ Donut Pie & Bar Chart vẽ bằng CustomPainter</span></div>
+    </div>
+
+    <a href="https://github.com/pie-12/mob2026-lab3/actions" class="btn-download" target="_blank">
+      📥 Tải File APK Cài Đặt (Android)
+    </a>
+
+    <a href="https://github.com/pie-12/mob2026-lab3" class="btn-secondary" target="_blank">
+      💻 Xem Mã Nguồn Trên GitHub
+    </a>
+
+    <div class="footer">
+      Sinh viên: <b>Nguyễn Tùng Lâm</b> · MSSV: <b>23IT138</b><br>
+      VKU - Đại học Công nghệ Thông tin & Truyền thông Việt - Hàn
+    </div>
+  </div>
+</body>
+</html>
