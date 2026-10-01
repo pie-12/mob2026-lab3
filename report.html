@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Báo cáo Kỹ thuật Mini-Project 3</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      font-size: 13.5px;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #0f172a;
+      font-size: 22px;
+      font-weight: 800;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+      margin-top: 0;
+    }
+    h2 {
+      color: #0284c7;
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      border-left: 4px solid #0284c7;
+      padding-left: 8px;
+    }
+    h3 {
+      color: #334155;
+      font-size: 14.5px;
+      font-weight: 700;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+    p {
+      margin: 6px 0;
+      text-align: justify;
+    }
+    ul, ol {
+      margin: 6px 0 10px 20px;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #cbd5e1;
+      margin: 16px 0;
+    }
+    code {
+      background-color: #f1f5f9;
+      color: #0284c7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+    }
+    strong {
+      color: #0f172a;
+    }
+  </style>
+</head>
+<body>
+  <h1>BÁO CÁO KỸ THUẬT: MINI-PROJECT 3 — RECEIPT OCR & EXPENSE TRACKER</h1>
+
+<p><strong>Môn học:</strong> Cross-Platform Mobile App Development  </p>
+<p><strong>Học kỳ:</strong> Fall 2026  </p>
+<p><strong>Sinh viên thực hiện:</strong> Nguyễn Tùng Lâm  </p>
+<p><strong>Mã Sinh Viên:</strong> 23IT138  </p>
+<p><strong>Đề tài:</strong> Mini-Project 3: Receipt OCR & Expense Tracker (Flutter & Dart)  </p>
+<p><strong>Repository GitHub:</strong> [https://github.com/pie-12/mob2026-lab3](https://github.com/pie-12/mob2026-lab3)  </p>
+<p><strong>Video Demo:</strong> [Điền link Google Drive / YouTube video quay thao tác trên điện thoại]  </p>
+
+<hr/>
+
+<h2>1. Giới thiệu Dự án & Kịch bản Thực tế (Problem Scenario)</h2>
+<p>Sinh viên và ban chủ nhiệm các câu lạc bộ tại VKU thường xuyên phải thanh toán các hóa đơn mua sắm trang thiết bị, ăn uống, in ấn tài liệu bằng tiền mặt. Việc ghi chép thủ công từng con số vào file Excel rất tốn thời gian và dễ xảy ra nhầm lẫn số liệu.</p>
+
+<p>Ứng dụng <strong>VKU Receipt OCR & Expense Tracker</strong> được xây dựng trên nền tảng <strong>Flutter & Dart</strong>, tích hợp trí tuệ nhân tạo trên thiết bị (<strong>On-device AI Google ML Kit</strong>) để nhận diện chữ từ hóa đơn không cần mạng Internet. Hệ thống sử dụng bộ bóc tách Heuristic Regex Parser để trích xuất tự động tổng số tiền và ngày giao dịch, lưu trữ bền vững vào cơ sở dữ liệu <strong>SQLite</strong>, và trực quan hóa phân tích tài chính qua các biểu đồ <strong>CustomPainter (Canvas 2D)</strong>.</p>
+
+<hr/>
+
+<h2>2. Kiến trúc Hệ thống (System Architecture)</h2>
+
+<p>Luồng xử lý dữ liệu khép kín:</p>
+<ol>
+<li><strong>Camera Capture (<code>image_picker</code>):</strong> Người dùng chụp ảnh hóa đơn giấy hoặc chọn ảnh chụp sẵn từ thư viện ảnh điện thoại.</li>
+<li><strong>On-Device Offline OCR (<code>google_mlkit_text_recognition</code>):</strong> Quét và nhận diện toàn bộ các dòng chữ tiếng Việt & Latinh ngoại tuyến hoàn toàn, đảm bảo tính riêng tư dữ liệu và tốc độ phản hồi tính bằng mili-giây.</li>
+<li><strong>Dart Regex Parser Engine:</strong> Bóc tách các trường dữ liệu quan trọng:</li>
+<li><em>Tổng tiền (Total Amount):</em> Quét ngược từ đáy hóa đơn tìm các từ khóa "Tổng cộng", "Thanh toán", "Total", xử lý định dạng phân cách hàng nghìn (chấm, phẩy) và đơn vị đ/VND/$.</li>
+<li><em>Ngày tháng (Date):</em> Nhận diện các mẫu ngày <code>DD/MM/YYYY</code>, <code>DD-MM-YYYY</code>, <code>YYYY-MM-DD</code>.</li>
+<li><em>Cửa hàng (Merchant):</em> Lọc bỏ tiêu đề hóa đơn để lấy tên thương hiệu ở các dòng đầu tiên.</li>
+<li><em>Tự động gợi ý danh mục:</em> Nhận biết các từ khóa "cafe", "mart", "sách", "xăng" để phân loại tự động.</li>
+<li><strong>Màn hình Xác nhận (Receipt Review Screen):</strong> Cho phép người dùng đối chiếu ảnh gốc với thông tin đã trích xuất, chỉnh sửa nếu cần trước khi lưu.</li>
+<li><strong>Cơ sở dữ liệu SQLite (<code>sqflite</code>):</strong> Lưu trữ dữ liệu hóa đơn lâu dài vào thiết bị.</li>
+<li><strong>Biểu đồ Tùy biến (<code>CustomPainter</code>):</strong> Vẽ biểu đồ Donut Pie Chart và Bar Chart trực tiếp bằng Canvas API, không phụ thuộc thư viện bên thứ ba.</li>
+</ul>
+
+<hr/>
+
+<h2>3. Quá trình Triển khai & Chi tiết Kỹ thuật</h2>
+
+<h3>3.1. Nhận diện chữ Offline với Google ML Kit</h3>
+<ul>
+<li>Cấu hình <code>minSdkVersion 21</code> trong <code>android/app/build.gradle</code>.</li>
+<li>Sử dụng <code>TextRecognizer(script: TextRecognitionScript.latin)</code>.</li>
+<li>Khởi tạo <code>InputImage.fromFilePath(imagePath)</code> và trích xuất <code>RecognizedText</code>.</li>
+</ul>
+
+<h3>3.2. Thuật toán Bóc tách Regex Heuristic</h3>
+<ul>
+<li>Bộ lọc <code>_parseAmountFromLine</code>: Làm sạch dấu chấm phẩy hàng nghìn, phân tích số thực an toàn.</li>
+<li>Lọc nhiễu tiêu đề: Bỏ qua các chuỗi như "HÓA ĐƠN", "BILL", "VAT", "SỐ BÀN" để bắt chính xác tên quán.</li>
+<li>Chế độ Fallback: Nếu ảnh bị mờ góc tổng tiền, thuật toán tự động quét dải số thực lớn nhất hợp lý trong toàn bộ văn bản.</li>
+</ul>
+
+<h3>3.3. Tầng Dữ liệu SQLite Nội bộ</h3>
+<ul>
+<li>Bảng <code>expenses</code> gồm các trường: <code>id</code>, <code>merchant_name</code>, <code>total_amount</code>, <code>date</code>, <code>category</code>, <code>image_path</code>, <code>raw_ocr_text</code>.</li>
+<li>Hỗ trợ các hàm thống kê tổng hợp <code>SUM(total_amount)</code> và <code>GROUP BY category</code> phục vụ dựng biểu đồ.</li>
+</ul>
+
+<h3>3.4. Dựng Biểu đồ bằng CustomPainter (Canvas 2D)</h3>
+<ul>
+<li><code>_PieChartPainter</code>: Sử dụng <code>canvas.drawArc</code> với góc tính theo tỉ lệ phần trăm chi tiêu của từng nhóm danh mục, hiển thị tổng tiền ở tâm biểu đồ Donut.</li>
+<li><code>_BarChartPainter</code>: Sử dụng <code>canvas.drawRRect</code> và <code>canvas.drawLine</code> để vẽ các cột chi tiêu có bo góc và lưới tọa độ ngày tháng.</li>
+</ul>
+
+<hr/>
+
+<h2>4. Tóm tắt Kết quả Đạt được & Khó khăn</h2>
+
+<h3>Kết quả đạt được</h3>
+<ol>
+<li>Ứng dụng chạy mượt mà trên thiết bị Android, nhận diện hóa đơn offline 100% trong chưa tới 1 giây.</li>
+<li>Bộ bóc tách Regex nhận diện chính xác các hóa đơn phổ biến tại Việt Nam (Highlands Coffee, WinMart, nhà sách, quán ăn...).</li>
+<li>Biểu đồ Canvas tùy biến mượt mà, trực quan, đúng tiêu chí nâng cao của môn học.</li>
+<li>Thiết lập thành công pipeline CI/CD GitHub Actions tự động build file <code>app-release.apk</code> trên đám mây.</li>
+</ul>
+
+<h3>Khó khăn & Cách khắc phục</h3>
+<ol>
+<li><strong>Nhận diện tiền tệ Việt Nam (VNĐ):</strong> Hóa đơn có thể ghi <code>125,000</code> hoặc <code>125.000</code> hoặc <code>125k</code> hoặc không có ký hiệu đ. <strong>Giải pháp:</strong> Xây dựng Regex parser đa tầng: ưu tiên dòng có từ khóa "Tổng", sau đó chuẩn hóa chuỗi số trước khi parse <code>double</code>.</li>
+<li><strong>Yêu cầu SDK của Google ML Kit:</strong> ML Kit yêu cầu Android SDK tối thiểu 21. <strong>Giải pháp:</strong> Cấu hình chuẩn hóa <code>minSdk = 21</code> và <code>compileSdk = 34</code> trong <code>android/app/build.gradle</code>.</li>
+<li><strong>Vẽ biểu đồ Canvas không dùng thư viện:</strong> Khó khăn khi tính toán góc quay của hình tròn và căn chỉnh tọa độ chữ. <strong>Giải pháp:</strong> Sử dụng công thức lượng giác kết hợp <code>TextPainter</code> của Flutter để định vị chính xác vị trí nhãn phần trăm và legend.</li>
+</ul>
+
+<hr/>
+<p><em>Báo cáo kết thúc.</em></p>
+
+</body>
+</html>
