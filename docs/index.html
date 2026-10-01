@@ -3,60 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VKU Expense Tracker — AI Receipt OCR Mobile App</title>
+  <title>VKU Expense Tracker — Sổ Tay Quản Lý Chi Tiêu & Quét Hóa Đơn AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #07090e;
-      --surface: #0e131f;
-      --card: rgba(17, 24, 39, 0.7);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-hover-border: rgba(56, 189, 248, 0.35);
-      --primary: #0284c7;
-      --primary-light: #38bdf8;
-      --emerald: #10b981;
-      --emerald-glow: rgba(16, 185, 129, 0.2);
-      --amber: #f59e0b;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-sub: #64748b;
+      /* Warm Paper & Leather Palette - Vintage & Mộc mạc */
+      --paper-bg: #F8F5EE;          /* Nền giấy kem mộc */
+      --paper-card: #FFFFFF;        /* Trang giấy trắng tự nhiên */
+      --paper-warm: #EFE9DC;        /* Màu bìa giấy Kraft / Sổ tay */
+      --border-warm: #DCCFB8;       /* Viền màu be nâu */
+      --stitch-border: #C8BAA0;     /* Đường may sổ da / viền đứt */
+      
+      /* Mực in & Điểm nhấn retro */
+      --ink-black: #2C241E;         /* Mực đen nâu ấm (thay cho đen kịt) */
+      --ink-muted: #6B5E55;         /* Mực xám nâu vintage */
+      --ink-light: #948679;         /* Chữ phụ */
+      --leather-brown: #5C4033;     /* Màu da bò / Cafe nâu */
+      --leather-dark: #3F2A1E;      /* Nâu đậm bấm nút */
+      --terracotta: #C25E3E;        /* Đỏ gạch / Dấu triện đỏ vintage */
+      --sage-green: #3F624C;        /* Xanh rêu olive mộc mạc */
+      --sage-bg: #EAEFEA;
+      --amber-warm: #D9822B;        /* Màu hổ phách ấm */
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: var(--paper-bg);
+      color: var(--ink-black);
+      font-family: 'Plus Jakarta Sans', sans-serif;
       line-height: 1.6;
-      overflow-x: hidden;
+      /* Hiệu ứng hạt giấy mộc tự nhiên */
       background-image: 
-        radial-gradient(circle at 20% 15%, rgba(2, 132, 199, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 30%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 50% 85%, rgba(56, 189, 248, 0.08) 0%, transparent 50%);
-      background-attachment: fixed;
+        radial-gradient(#D5C9B3 0.75px, transparent 0.75px),
+        radial-gradient(#D5C9B3 0.75px, var(--paper-bg) 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+      overflow-x: hidden;
     }
 
-    /* Header Nav */
+    /* Washi Tape (Băng dính giấy dán) */
+    .washi-tape {
+      position: absolute;
+      width: 100px;
+      height: 24px;
+      background: rgba(220, 207, 184, 0.7);
+      border-left: 2px dashed rgba(180, 160, 130, 0.6);
+      border-right: 2px dashed rgba(180, 160, 130, 0.6);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-1deg);
+      z-index: 10;
+    }
+
+    /* Vintage Stamp (Dấu mộc tròn đỏ retro) */
+    .vintage-stamp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed var(--terracotta);
+      border-radius: 50%;
+      width: 76px;
+      height: 76px;
+      color: var(--terracotta);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      text-align: center;
+      transform: rotate(-10deg);
+      opacity: 0.88;
+      box-shadow: inset 0 0 0 2px rgba(194, 94, 62, 0.1);
+      line-height: 1.2;
+    }
+
+    /* Sticky Navigation */
     header {
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      background: rgba(7, 9, 14, 0.75);
-      border-bottom: 1px solid var(--card-border);
+      background: rgba(248, 245, 238, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px dashed var(--border-warm);
       padding: 14px 24px;
     }
 
     .nav-container {
-      max-width: 1200px;
+      max-width: 1140px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -70,145 +111,124 @@
       text-decoration: none;
     }
 
-    .logo-icon {
-      width: 40px;
-      height: 40px;
+    .logo-badge-icon {
+      width: 42px;
+      height: 42px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #0284c7, #10b981);
+      background: var(--leather-brown);
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 20px;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+      box-shadow: 0 4px 10px rgba(92, 64, 51, 0.25);
     }
 
-    .logo-text {
-      font-weight: 800;
-      font-size: 17px;
-      color: #fff;
+    .logo-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--ink-black);
       letter-spacing: -0.3px;
     }
 
-    .logo-badge {
+    .logo-tag {
       font-size: 10px;
       font-weight: 700;
-      color: var(--primary-light);
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      padding: 2px 7px;
+      background: var(--paper-warm);
+      border: 1px solid var(--border-warm);
+      color: var(--leather-brown);
+      padding: 2px 8px;
       border-radius: 6px;
       margin-left: 6px;
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
     .btn-nav-download {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
-      color: #fff;
+      background: var(--leather-brown);
+      color: #FFF;
       text-decoration: none;
       font-size: 13px;
       font-weight: 700;
       padding: 9px 18px;
       border-radius: 10px;
-      transition: all 0.2s;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 3px 8px rgba(92, 64, 51, 0.2);
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
+      transition: all 0.2s;
     }
 
     .btn-nav-download:hover {
-      box-shadow: 0 0 20px rgba(2, 132, 199, 0.5);
+      background: var(--leather-dark);
       transform: translateY(-1px);
     }
 
-    /* Main Container */
+    /* Main Layout */
     main {
-      max-width: 1200px;
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 60px 24px 100px;
+      padding: 50px 20px 90px;
     }
 
     /* Hero Section */
     .hero-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
-      gap: 50px;
+      gap: 40px;
       align-items: center;
-      margin-bottom: 90px;
+      margin-bottom: 80px;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 880px) {
       .hero-grid {
         grid-template-columns: 1fr;
-        gap: 40px;
         text-align: center;
       }
     }
 
-    .hero-badge-pill {
+    .hero-tag-chip {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 6px 14px;
-      border-radius: 30px;
+      background: var(--sage-bg);
+      border: 1px solid rgba(63, 98, 76, 0.3);
+      color: var(--sage-green);
       font-size: 12px;
       font-weight: 700;
-      color: var(--emerald);
-      margin-bottom: 24px;
-    }
-
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--emerald);
-      box-shadow: 0 0 10px var(--emerald);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.3); opacity: 1; }
-      100% { transform: scale(0.95); opacity: 0.8; }
-    }
-
-    h1.hero-title {
-      font-size: clamp(34px, 4.5vw, 54px);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -1.2px;
+      padding: 6px 14px;
+      border-radius: 20px;
       margin-bottom: 20px;
     }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff 40%, var(--primary-light) 80%, var(--emerald) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    h1.hero-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(34px, 4.2vw, 52px);
+      line-height: 1.15;
+      color: var(--ink-black);
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
     }
 
-    p.hero-desc {
+    .hero-heading em {
+      color: var(--terracotta);
+      font-style: italic;
+    }
+
+    p.hero-lead {
       font-size: 16px;
-      color: var(--text-muted);
+      color: var(--ink-muted);
       line-height: 1.7;
-      margin-bottom: 34px;
-      max-width: 580px;
+      margin-bottom: 30px;
+      max-width: 540px;
     }
 
-    @media (max-width: 900px) {
-      p.hero-desc {
+    @media (max-width: 880px) {
+      p.hero-lead {
         margin-left: auto;
         margin-right: auto;
       }
     }
 
-    .cta-row {
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
@@ -216,116 +236,119 @@
       margin-bottom: 34px;
     }
 
-    @media (max-width: 900px) {
-      .cta-row {
+    @media (max-width: 880px) {
+      .hero-actions {
         justify-content: center;
       }
     }
 
-    .btn-primary-download {
-      background: linear-gradient(135deg, #0284c7, #0ea5e9);
-      color: #fff;
+    .btn-kraft-download {
+      background: var(--leather-brown);
+      color: #FFFFFF;
       font-size: 16px;
-      font-weight: 800;
-      padding: 16px 30px;
+      font-weight: 700;
+      padding: 16px 28px;
       border-radius: 14px;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.25s;
+      box-shadow: 0 6px 16px rgba(92, 64, 51, 0.25);
+      border: 1px solid var(--leather-dark);
+      transition: all 0.2s;
     }
 
-    .btn-primary-download:hover {
+    .btn-kraft-download:hover {
+      background: var(--leather-dark);
       transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(2, 132, 199, 0.6);
+      box-shadow: 0 8px 20px rgba(92, 64, 51, 0.35);
     }
 
-    .btn-outline-github {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
+    .btn-kraft-github {
+      background: var(--paper-warm);
+      color: var(--ink-black);
       font-size: 15px;
       font-weight: 700;
-      padding: 16px 24px;
+      padding: 16px 22px;
       border-radius: 14px;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid var(--card-border);
+      border: 1.5px dashed var(--stitch-border);
       transition: all 0.2s;
     }
 
-    .btn-outline-github:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
+    .btn-kraft-github:hover {
+      background: #E8E0D0;
     }
 
-    .student-badge-card {
+    .author-seal {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: rgba(14, 19, 31, 0.8);
-      border: 1px solid var(--card-border);
-      padding: 10px 16px;
+      background: #FFF;
+      border: 1px solid var(--border-warm);
+      padding: 10px 18px;
       border-radius: 14px;
-      font-size: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
 
-    .student-avatar {
-      width: 32px;
-      height: 32px;
+    .author-icon {
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #f59e0b, #ec4899);
+      background: var(--paper-warm);
+      color: var(--leather-brown);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      color: #fff;
       font-size: 12px;
+      border: 1px solid var(--border-warm);
     }
 
-    /* Interactive Phone Mockup */
-    .mockup-wrapper {
+    /* Sổ Tay Ghi Chép Phone Mockup (Vintage Notebook Frame) */
+    .mockup-container {
       position: relative;
       display: flex;
       justify-content: center;
     }
 
-    .phone-frame {
-      width: 340px;
-      height: 640px;
-      background: #0f172a;
-      border-radius: 46px;
-      border: 7px solid #1e293b;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(2, 132, 199, 0.2);
+    .notebook-device {
+      width: 330px;
+      height: 610px;
+      background: #FFF;
+      border-radius: 36px;
+      border: 8px solid #4A3A2C; /* Viền da cổ điển */
+      box-shadow: 
+        0 20px 40px -10px rgba(62, 39, 35, 0.25),
+        0 0 0 1px rgba(0,0,0,0.1);
       overflow: hidden;
       display: flex;
       flex-direction: column;
       position: relative;
     }
 
-    .phone-notch {
-      width: 120px;
-      height: 20px;
-      background: #1e293b;
+    .notch-bar {
+      width: 110px;
+      height: 18px;
+      background: #4A3A2C;
       margin: 0 auto;
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
     }
 
-    .phone-screen {
+    .device-screen {
       flex: 1;
       padding: 16px;
-      background: #f8fafc;
-      color: #0f172a;
+      background: #FAF7F2;
       overflow-y: auto;
       font-size: 13px;
     }
 
-    .mock-header {
+    /* App Screen Inside Device */
+    .screen-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -333,562 +356,621 @@
       padding-top: 4px;
     }
 
-    .mock-header-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: #0f172a;
+    .screen-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--ink-black);
     }
 
-    .mock-balance-card {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
+    /* Card Bìa Da Chi Tiêu */
+    .expense-wallet-card {
+      background: var(--leather-brown);
+      color: #FFF;
       border-radius: 16px;
       padding: 16px;
-      color: #fff;
       margin-bottom: 14px;
-      box-shadow: 0 6px 14px rgba(2, 132, 199, 0.35);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(92, 64, 51, 0.25);
+      border: 1px solid #755543;
     }
 
-    .mock-balance-sub {
+    .wallet-sub {
       font-size: 10px;
-      opacity: 0.8;
-      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #E2D7CE;
+      font-weight: 700;
     }
 
-    .mock-balance-val {
-      font-size: 22px;
-      font-weight: 800;
-      margin-top: 4px;
+    .wallet-amount {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      margin: 4px 0 2px;
       letter-spacing: -0.5px;
     }
 
-    .mock-chart-box {
-      background: #fff;
-      border-radius: 16px;
-      padding: 14px;
-      border: 1px solid #e2e8f0;
-      margin-bottom: 14px;
-      text-align: center;
+    .wallet-status {
+      font-size: 11px;
+      color: #F1ECE6;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .mock-donut-preview {
-      margin: 10px auto;
-      width: 110px;
-      height: 110px;
+    /* Hóa đơn đính kèm (Thermal Paper Effect) */
+    .paper-receipt-card {
+      background: #FFF;
+      border-radius: 14px;
+      border: 1px solid var(--border-warm);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .paper-chart-wrap {
+      text-align: center;
+      margin: 8px 0;
       position: relative;
     }
 
-    .mock-donut-svg {
-      transform: rotate(-90deg);
-    }
-
-    .mock-donut-center {
+    .paper-chart-center {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 11px;
       font-weight: 800;
-      color: #0f172a;
+      font-size: 11px;
+      color: var(--ink-black);
     }
 
-    .mock-receipt-item {
-      background: #fff;
-      border-radius: 12px;
-      padding: 10px 12px;
-      border: 1px solid #e2e8f0;
+    /* List item vintage */
+    .receipt-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      padding: 9px 0;
+      border-bottom: 1px dashed var(--border-warm);
     }
 
-    .mock-receipt-name {
+    .receipt-row:last-child {
+      border-bottom: none;
+    }
+
+    .receipt-row-title {
       font-weight: 700;
       font-size: 12px;
-      color: #0f172a;
+      color: var(--ink-black);
     }
 
-    .mock-receipt-meta {
+    .receipt-row-meta {
       font-size: 10px;
-      color: #64748b;
-      margin-top: 2px;
+      color: var(--ink-muted);
     }
 
-    .mock-receipt-price {
-      font-weight: 800;
+    .receipt-row-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
       font-size: 12px;
-      color: #0f172a;
+      color: var(--leather-brown);
     }
 
-    /* Floating Feature Badge on Mockup */
-    .floating-badge {
+    /* Floating Stamps on Mockup */
+    .stamp-badge-1 {
       position: absolute;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      backdrop-filter: blur(10px);
-      padding: 10px 14px;
-      border-radius: 14px;
+      top: 25px;
+      left: -25px;
+      background: #FFF;
+      border: 1.5px dashed var(--border-warm);
+      padding: 8px 14px;
+      border-radius: 12px;
       font-size: 12px;
       font-weight: 700;
-      color: #fff;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      color: var(--sage-green);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
-    .badge-top-left {
-      top: 40px;
-      left: -20px;
-    }
-
-    .badge-bottom-right {
+    .stamp-badge-2 {
+      position: absolute;
       bottom: 60px;
-      right: -20px;
+      right: -25px;
+      background: #FFF;
+      border: 1.5px dashed var(--border-warm);
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--terracotta);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    @media (max-width: 900px) {
-      .floating-badge {
+    @media (max-width: 880px) {
+      .stamp-badge-1, .stamp-badge-2 {
         display: none;
       }
     }
 
-    /* Section Title */
-    .section-head {
+    /* Section Heading */
+    .section-title-wrap {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
 
-    .section-pill {
-      display: inline-block;
+    .vintage-label {
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 1.5px;
-      color: var(--primary-light);
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      padding: 5px 14px;
-      border-radius: 20px;
-      margin-bottom: 12px;
+      color: var(--leather-brown);
+      background: var(--paper-warm);
+      border: 1px solid var(--border-warm);
+      padding: 4px 12px;
+      border-radius: 16px;
       text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 10px;
     }
 
-    h2.section-title {
-      font-size: clamp(26px, 3.5vw, 38px);
-      font-weight: 800;
-      letter-spacing: -0.6px;
+    h2.section-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 3.2vw, 36px);
+      color: var(--ink-black);
     }
 
-    /* Features 4-Grid */
-    .features-grid {
+    /* 4 Thẻ Tính Năng Craft */
+    .craft-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      margin-bottom: 90px;
+      margin-bottom: 80px;
     }
 
-    .feature-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 28px 24px;
-      transition: all 0.25s ease;
+    .craft-card {
+      background: #FFF;
+      border: 1px solid var(--border-warm);
+      border-radius: 18px;
+      padding: 24px;
       position: relative;
-      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(62, 39, 35, 0.04);
+      transition: all 0.2s;
     }
 
-    .feature-card:hover {
-      border-color: var(--card-hover-border);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px -10px rgba(2, 132, 199, 0.2);
+    .craft-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(62, 39, 35, 0.08);
+      border-color: var(--stitch-border);
     }
 
-    .feature-icon-box {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 18px;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      color: var(--primary-light);
+    .card-pin {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--terracotta);
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
     }
 
-    .feature-card h3 {
-      font-size: 18px;
-      font-weight: 800;
+    .craft-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 19px;
       margin-bottom: 8px;
-      color: #fff;
+      color: var(--ink-black);
     }
 
-    .feature-card p {
+    .craft-card p {
       font-size: 13.5px;
-      color: var(--text-muted);
+      color: var(--ink-muted);
       line-height: 1.6;
     }
 
-    /* Interactive Live OCR Simulator */
-    .simulator-container {
-      background: var(--card);
-      border: 1px solid var(--card-border);
+    /* Live Receipt Simulator (Mô Phỏng Hóa Đơn Giấy Cổ Điển) */
+    .receipt-simulator-box {
+      background: #FFF;
+      border: 1.5px dashed var(--border-warm);
       border-radius: 24px;
-      padding: 36px 32px;
-      margin-bottom: 90px;
+      padding: 34px 28px;
+      position: relative;
+      margin-bottom: 80px;
+      box-shadow: 0 8px 24px rgba(62, 39, 35, 0.05);
     }
 
-    .sim-header {
+    .sim-top-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      align-items: center;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 26px;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-warm);
     }
 
-    .sim-tabs {
+    .sim-tab-group {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
 
-    .sim-tab-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--card-border);
-      color: var(--text-muted);
-      padding: 8px 16px;
+    .sim-tab {
+      background: var(--paper-warm);
+      border: 1px solid var(--border-warm);
+      color: var(--ink-muted);
+      padding: 7px 14px;
       border-radius: 10px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .sim-tab-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary-light);
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    .sim-tab.active {
+      background: var(--leather-brown);
+      color: #FFF;
+      border-color: var(--leather-brown);
     }
 
-    .sim-display-grid {
+    .sim-two-column {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
     }
 
     @media (max-width: 768px) {
-      .sim-display-grid {
+      .sim-two-column {
         grid-template-columns: 1fr;
       }
     }
 
-    .raw-receipt-panel {
-      background: #090d16;
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 20px;
+    /* Giấy Hóa Đơn Máy In Nhiệt */
+    .paper-bill {
+      background: #FAF7F0;
+      border: 1px dashed var(--border-warm);
+      border-radius: 12px;
+      padding: 18px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
-      color: #cbd5e1;
+      color: #3E3228;
       white-space: pre-wrap;
       line-height: 1.7;
     }
 
-    .extracted-result-panel {
-      background: rgba(14, 19, 31, 0.95);
-      border: 1px solid rgba(16, 185, 129, 0.3);
+    /* Thẻ Kết Quả Bóc Tách */
+    .parsed-result-card {
+      background: var(--paper-bg);
+      border: 1px solid var(--border-warm);
       border-radius: 16px;
-      padding: 24px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .extracted-item {
+    .parsed-row {
       margin-bottom: 14px;
     }
 
-    .extracted-label {
+    .parsed-k {
       font-size: 11px;
-      color: var(--text-sub);
       font-weight: 700;
+      color: var(--ink-light);
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 4px;
+      letter-spacing: 0.6px;
+      margin-bottom: 3px;
     }
 
-    .extracted-value {
-      font-size: 17px;
-      font-weight: 800;
-      color: #fff;
+    .parsed-v {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink-black);
     }
 
-    .extracted-value.price {
-      color: var(--emerald);
+    .parsed-v.highlight {
+      font-family: 'DM Serif Display', serif;
       font-size: 24px;
+      color: var(--terracotta);
     }
 
-    /* Architecture Flow 4-step */
-    .flow-row {
+    /* 4 Bước Vận Hành Kiểu Thẻ Nhãn */
+    .steps-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
-      margin-bottom: 90px;
+      margin-bottom: 80px;
     }
 
-    @media (max-width: 860px) {
-      .flow-row {
+    @media (max-width: 820px) {
+      .steps-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 500px) {
+      .steps-row {
         grid-template-columns: 1fr;
       }
     }
 
-    .flow-step {
-      background: var(--card);
-      border: 1px solid var(--card-border);
+    .step-card {
+      background: #FFF;
+      border: 1px solid var(--border-warm);
       border-radius: 16px;
-      padding: 20px;
-      position: relative;
+      padding: 20px 16px;
+      text-align: center;
     }
 
-    .step-number {
-      font-family: 'JetBrains Mono', monospace;
+    .step-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--paper-warm);
+      color: var(--leather-brown);
+      font-weight: 800;
       font-size: 12px;
-      color: var(--primary-light);
-      font-weight: 700;
-      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      border: 1px solid var(--border-warm);
     }
 
     .step-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: #fff;
+      font-family: 'DM Serif Display', serif;
+      font-size: 16px;
+      color: var(--ink-black);
       margin-bottom: 6px;
     }
 
     .step-desc {
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--ink-muted);
+      line-height: 1.5;
     }
 
-    /* Bottom Big Download Banner */
-    .final-cta {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.25), rgba(16, 185, 129, 0.15));
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      border-radius: 28px;
-      padding: 48px 32px;
+    /* Banner Tải Cuối Trang */
+    .cta-banner {
+      background: var(--leather-brown);
+      color: #FFF;
+      border-radius: 24px;
+      padding: 44px 30px;
       text-align: center;
+      box-shadow: 0 12px 30px rgba(62, 39, 35, 0.2);
+      border: 2px dashed #7E5943;
       position: relative;
-      overflow: hidden;
     }
 
-    .final-cta h2 {
-      font-size: clamp(26px, 3.5vw, 36px);
-      font-weight: 800;
-      margin-bottom: 12px;
+    .cta-banner h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(24px, 3.5vw, 34px);
+      margin-bottom: 10px;
     }
 
-    .final-cta p {
-      font-size: 15px;
-      color: var(--text-muted);
-      margin-bottom: 28px;
+    .cta-banner p {
+      font-size: 14.5px;
+      color: #E2D7CE;
+      margin-bottom: 26px;
       max-width: 500px;
       margin-left: auto;
       margin-right: auto;
     }
 
+    .btn-light-download {
+      background: #FAF7F2;
+      color: var(--leather-brown);
+      font-size: 15px;
+      font-weight: 800;
+      padding: 15px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.2s;
+    }
+
+    .btn-light-download:hover {
+      background: #FFF;
+      transform: translateY(-2px);
+    }
+
     /* Footer */
     footer {
-      border-top: 1px solid var(--card-border);
-      padding: 30px 24px;
+      border-top: 1px dashed var(--border-warm);
+      padding: 28px 20px;
       text-align: center;
       font-size: 12px;
-      color: var(--text-sub);
+      color: var(--ink-muted);
     }
 
     footer a {
-      color: var(--primary-light);
+      color: var(--leather-brown);
+      font-weight: 700;
       text-decoration: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Sticky Header -->
+  <!-- Thanh Điều Hướng Vintage -->
   <header>
     <div class="nav-container">
       <a href="#" class="logo-wrap">
-        <div class="logo-icon">🧾</div>
+        <div class="logo-badge-icon">☕</div>
         <div>
-          <span class="logo-text">VKU Expense</span>
-          <span class="logo-badge">LAB 3</span>
+          <span class="logo-title">VKU Expense</span>
+          <span class="logo-tag">Sổ Chi Tiêu</span>
         </div>
       </a>
 
-      <div class="nav-links">
-        <a href="https://github.com/pie-12/mob2026-lab3/actions/runs/36830094904/artifacts/11146907475" class="btn-nav-download" target="_blank">
-          <span>📥 Tải APK</span>
-        </a>
-      </div>
+      <a href="https://github.com/pie-12/mob2026-lab3/actions/runs/36830094904/artifacts/11146907475" class="btn-nav-download" target="_blank">
+        <span>📥 Tải file APK</span>
+      </a>
     </div>
   </header>
 
   <main>
-    <!-- Hero Section -->
+    <!-- Hero Section Paper Craft -->
     <div class="hero-grid">
       <div>
-        <div class="hero-badge-pill">
-          <span class="pulse-dot"></span>
-          <span>Google ML Kit · 100% Offline AI OCR</span>
+        <div class="hero-tag-chip">
+          <span>🌿</span>
+          <span>Google ML Kit · Nhận diện chữ 100% Offline</span>
         </div>
 
-        <h1 class="hero-title">
-          Quản Lý Chi Tiêu & Quét Hóa Đơn <span class="gradient-text">Bằng Trí Tuệ Nhân Tạo</span>
+        <h1 class="hero-heading">
+          Cuốn Sổ Tay <em>Quản Lý Chi Tiêu</em> & Quét Hóa Đơn AI
         </h1>
 
-        <p class="hero-desc">
-          Ứng dụng Flutter di động dành cho sinh viên VKU: Tự động nhận diện chữ từ hóa đơn không cần Internet, trích xuất chính xác tổng tiền & ngày tháng bằng giải thuật Regex Heuristic, lưu trữ bảo mật qua SQLite và vẽ biểu đồ CustomPainter sống động.
+        <p class="hero-lead">
+          Ứng dụng Flutter mộc mạc dành cho sinh viên VKU: Tự động ghi chép hóa đơn tiền mặt qua Camera AI ngoại tuyến, thuật toán Regex bóc tách chuẩn xác tiền & ngày, lưu trữ an toàn trong SQLite và vẽ biểu đồ CustomPainter ấm áp.
         </p>
 
-        <div class="cta-row">
-          <a href="https://github.com/pie-12/mob2026-lab3/actions/runs/36830094904/artifacts/11146907475" class="btn-primary-download" target="_blank">
+        <div class="hero-actions">
+          <a href="https://github.com/pie-12/mob2026-lab3/actions/runs/36830094904/artifacts/11146907475" class="btn-kraft-download" target="_blank">
             <span>📥 Tải File APK (Android)</span>
           </a>
-          <a href="https://github.com/pie-12/mob2026-lab3" class="btn-outline-github" target="_blank">
-            <span>💻 Xem Mã Nguồn GitHub</span>
+          <a href="https://github.com/pie-12/mob2026-lab3" class="btn-kraft-github" target="_blank">
+            <span>📖 Kho Mã Nguồn GitHub</span>
           </a>
         </div>
 
-        <div class="student-badge-card">
-          <div class="student-avatar">TL</div>
+        <div class="author-seal">
+          <div class="author-icon">TL</div>
           <div>
-            <div style="font-weight: 800; color: #fff;">Nguyễn Tùng Lâm · 23IT138</div>
-            <div style="color: var(--text-sub);">Khoa CNTT & Truyền thông · VKU MOB2026</div>
+            <div style="font-weight: 800; font-size: 13px; color: var(--ink-black);">Nguyễn Tùng Lâm · 23IT138</div>
+            <div style="font-size: 11px; color: var(--ink-muted);">Khoa CNTT & Truyền thông · VKU MOB2026</div>
           </div>
         </div>
       </div>
 
-      <!-- Phone Frame UI Mockup -->
-      <div class="mockup-wrapper">
-        <div class="phone-frame">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="mock-header">
+      <!-- Khung Điện Thoại Da & Giấy (Mockup) -->
+      <div class="mockup-container">
+        <div class="notebook-device">
+          <div class="notch-bar"></div>
+          <div class="device-screen">
+            <div class="screen-header">
               <div>
-                <div style="font-size: 9px; font-weight: 800; color: #0284c7; letter-spacing: 1px;">VKU EXPENSE TRACKER</div>
-                <div class="mock-header-title">Quản Lý Chi Tiêu</div>
+                <div style="font-size: 9px; font-weight: 800; color: var(--leather-brown); letter-spacing: 0.8px;">SỔ TAY VKU</div>
+                <div class="screen-title">Ghi Chép Chi Tiêu</div>
               </div>
-              <div style="width: 26px; height: 26px; border-radius: 8px; background: #e0f2fe; display: flex; align-items: center; justify-content: center; font-size: 12px;">📊</div>
+              <div style="font-size: 16px;">☕</div>
             </div>
 
-            <div class="mock-balance-card">
-              <div class="mock-balance-sub">TỔNG CHI TIÊU THÁNG 10</div>
-              <div class="mock-balance-val">1.485.000 đ</div>
-              <div style="font-size: 10px; opacity: 0.85; margin-top: 4px;">✓ 6 hóa đơn đã quét & lưu SQLite</div>
+            <!-- Thẻ Ví Da Nâu -->
+            <div class="expense-wallet-card">
+              <div class="wallet-sub">TỔNG CHI TIÊU THÁNG 10</div>
+              <div class="wallet-amount">1.485.000 đ</div>
+              <div class="wallet-status">
+                <span>✓ 6 hóa đơn đã quét vào SQLite</span>
+              </div>
             </div>
 
-            <!-- CustomPainter Donut Mockup -->
-            <div class="mock-chart-box">
-              <div style="font-size: 11px; font-weight: 700; color: #475569; display: flex; justify-content: space-between;">
-                <span>Phân tích danh mục</span>
-                <span style="color: #0284c7; font-size: 9px;">CustomPainter</span>
+            <!-- Biểu Đồ CustomPainter Dạng Giấy -->
+            <div class="paper-receipt-card">
+              <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: var(--ink-muted);">
+                <span>Phân chia danh mục</span>
+                <span style="color: var(--terracotta);">CustomPainter</span>
               </div>
-              <div class="mock-donut-preview">
-                <svg class="mock-donut-svg" width="110" height="110" viewBox="0 0 100 100">
-                  <circle cx="50" cy="50" r="38" fill="transparent" stroke="#0284c7" stroke-width="14" stroke-dasharray="130 110" />
-                  <circle cx="50" cy="50" r="38" fill="transparent" stroke="#10b981" stroke-width="14" stroke-dasharray="70 170" stroke-dashoffset="-130" />
-                  <circle cx="50" cy="50" r="38" fill="transparent" stroke="#f59e0b" stroke-width="14" stroke-dasharray="40 200" stroke-dashoffset="-200" />
+              <div class="paper-chart-wrap">
+                <svg width="100" height="100" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+                  <circle cx="50" cy="50" r="38" fill="transparent" stroke="#5C4033" stroke-width="13" stroke-dasharray="130 110" />
+                  <circle cx="50" cy="50" r="38" fill="transparent" stroke="#3F624C" stroke-width="13" stroke-dasharray="70 170" stroke-dashoffset="-130" />
+                  <circle cx="50" cy="50" r="38" fill="transparent" stroke="#D9822B" stroke-width="13" stroke-dasharray="40 200" stroke-dashoffset="-200" />
                 </svg>
-                <div class="mock-donut-center">1.485M</div>
+                <div class="paper-chart-center">1.485M</div>
               </div>
             </div>
 
-            <!-- Mock Recent Receipts -->
-            <div style="font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 6px;">Hóa đơn vừa quét</div>
+            <!-- Danh Sách Hóa Đơn -->
+            <div style="font-size: 11px; font-weight: 700; color: var(--ink-muted); margin-bottom: 6px;">Hóa đơn vừa lưu</div>
 
-            <div class="mock-receipt-item">
+            <div class="receipt-row">
               <div>
-                <div class="mock-receipt-name">Highlands Coffee</div>
-                <div class="mock-receipt-meta">01/10/2026 · Ăn uống</div>
+                <div class="receipt-row-title">Highlands Coffee VKU</div>
+                <div class="receipt-row-meta">01/10/2026 · Ăn uống</div>
               </div>
-              <div class="mock-receipt-price">125.000 đ</div>
+              <div class="receipt-row-val">125.000 đ</div>
             </div>
 
-            <div class="mock-receipt-item">
+            <div class="receipt-row">
               <div>
-                <div class="mock-receipt-name">WinMart+ Ngũ Hành Sơn</div>
-                <div class="mock-receipt-meta">30/09/2026 · Đi chợ</div>
+                <div class="receipt-row-title">WinMart+ Ngũ Hành Sơn</div>
+                <div class="receipt-row-meta">30/09/2026 · Đi chợ</div>
               </div>
-              <div class="mock-receipt-price">340.000 đ</div>
+              <div class="receipt-row-val">340.000 đ</div>
             </div>
           </div>
         </div>
 
-        <div class="floating-badge badge-top-left">
-          <span>⚡</span>
-          <span>Offline OCR 100% (No Internet)</span>
+        <div class="stamp-badge-1">
+          <span>🏷️</span>
+          <span>100% Offline AI (No Wifi)</span>
         </div>
 
-        <div class="floating-badge badge-bottom-right">
-          <span>🎯</span>
-          <span>Regex Engine Auto-Detect Total</span>
+        <div class="stamp-badge-2">
+          <span>📜</span>
+          <span>Regex Parser Tự Bóc Tiền</span>
         </div>
       </div>
     </div>
 
-    <!-- 4 Architecture Pillars -->
-    <div class="section-head">
-      <div class="section-pill">Hệ thống kiến trúc</div>
-      <h2 class="section-title">4 Khối Tính Năng Nòng Cốt</h2>
+    <!-- 4 Khối Cốt Lõi (Paper Craft Cards) -->
+    <div class="section-title-wrap">
+      <div class="vintage-label">Kiến trúc hệ thống</div>
+      <h2 class="section-heading">4 Trụ Cột Nền Tảng</h2>
     </div>
 
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon-box">📷</div>
-        <h3>1. Camera Capture</h3>
-        <p>Tích hợp thư viện <code>image_picker</code> giúp chụp hóa đơn tức thì qua Camera hoặc tải ảnh có sẵn từ Album ảnh với độ phân giải cao.</p>
+    <div class="craft-grid">
+      <div class="craft-card">
+        <div class="card-pin"></div>
+        <h3>1. Camera Chụp Ảnh</h3>
+        <p>Tích hợp <code>image_picker</code> độ nét cao, dễ dàng chụp các biên lai ăn uống, mua sắm tiền mặt hoặc chọn từ thư viện ảnh.</p>
       </div>
 
-      <div class="feature-card">
-        <div class="feature-icon-box">🧠</div>
+      <div class="craft-card">
+        <div class="card-pin" style="background: var(--sage-green);"></div>
         <h3>2. Google ML Kit OCR</h3>
-        <p>Xử lý nhận diện chữ hoàn toàn ngoại tuyến ngay trên thiết bị bằng mô hình thị giác máy tính của Google, cam kết bảo mật 100% dữ liệu chi tiêu.</p>
+        <p>Mô hình thị giác máy tính đọc chữ tiếng Việt ngay trên điện thoại không cần mạng Internet, an toàn tuyệt đối cho dữ liệu riêng tư.</p>
       </div>
 
-      <div class="feature-card">
-        <div class="feature-icon-box">🔍</div>
-        <h3>3. Regex Parser Engine</h3>
-        <p>Thuật toán Heuristic bóc tách chuẩn xác Tổng tiền thanh toán (VNĐ), Ngày xuất hóa đơn và Tên thương hiệu cửa hàng từ văn bản thô.</p>
+      <div class="craft-card">
+        <div class="card-pin" style="background: var(--amber-warm);"></div>
+        <h3>3. Heuristic Regex</h3>
+        <p>Bộ giải thuật bóc tách thông minh: Tự động phát hiện dòng Tổng cộng, chuẩn hóa định dạng tiền VNĐ và ngày tháng giao dịch.</p>
       </div>
 
-      <div class="feature-card">
-        <div class="feature-icon-box">🎨</div>
+      <div class="craft-card">
+        <div class="card-pin" style="background: var(--leather-brown);"></div>
         <h3>4. CustomPainter Canvas</h3>
-        <p>Vẽ biểu đồ hình quạt Donut Pie Chart và biểu đồ cột Bar Chart trực tiếp qua Canvas 2D của Flutter mà không phụ thuộc thư viện đồ họa thứ 3.</p>
+        <p>Tự vẽ biểu đồ Donut và biểu đồ cột trên Canvas 2D mộc mạc, không dùng thư viện thứ 3, đạt chuẩn tiêu chí kỹ thuật nâng cao của môn học.</p>
       </div>
     </div>
 
-    <!-- Interactive Live OCR Simulator -->
-    <div class="simulator-container">
-      <div class="sim-header">
+    <!-- Live OCR Simulator (Hóa Đơn Giấy Vintage) -->
+    <div class="receipt-simulator-box">
+      <div class="washi-tape"></div>
+
+      <div class="sim-top-row">
         <div>
-          <div class="section-pill">Trải nghiệm tương tác</div>
-          <h2 style="font-size: 24px; font-weight: 800; color: #fff;">Bộ Mô Phỏng Quét Hóa Đơn Trực Tiếp</h2>
-          <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Bấm chọn các hóa đơn mẫu để xem cơ chế bóc tách Regex hoạt động tức thời:</p>
+          <div class="vintage-label">Trải nghiệm tương tác</div>
+          <h2 style="font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink-black);">Mô Phỏng Quét Hóa Đơn Trực Tiếp</h2>
+          <p style="font-size: 13px; color: var(--ink-muted); margin-top: 3px;">Chọn hóa đơn mẫu để xem cơ chế bóc tách Regex hoạt động:</p>
         </div>
-        <div class="sim-tabs">
-          <button class="sim-tab-btn active" onclick="switchReceipt(0)">Highlands Coffee</button>
-          <button class="sim-tab-btn" onclick="switchReceipt(1)">WinMart+</button>
-          <button class="sim-tab-btn" onclick="switchReceipt(2)">Nhà Sách Fahasa</button>
+        <div class="sim-tab-group">
+          <button class="sim-tab active" onclick="switchReceipt(0)">Highlands Coffee</button>
+          <button class="sim-tab" onclick="switchReceipt(1)">WinMart+</button>
+          <button class="sim-tab" onclick="switchReceipt(2)">Nhà Sách Fahasa</button>
         </div>
       </div>
 
-      <div class="sim-display-grid">
+      <div class="sim-two-column">
         <div>
-          <div style="font-size: 11px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px;">VĂN BẢN THÔ ML KIT TRÍCH XUẤT (RAW OCR TEXT):</div>
-          <div class="raw-receipt-panel" id="raw-ocr-display">HIGHLANDS COFFEE VKU
+          <div style="font-size: 11px; font-weight: 700; color: var(--ink-muted); margin-bottom: 8px;">VĂN BẢN THÔ ML KIT TRÍCH XUẤT (RAW OCR TEXT):</div>
+          <div class="paper-bill" id="raw-ocr-display">HIGHLANDS COFFEE VKU
 Hoa don: #0049281
 Ngay: 01/10/2026 14:15
 1x Phin Sua Da (L)     45,000
@@ -900,89 +982,85 @@ Tien mat:             200,000
 Tien thua:             75,000</div>
         </div>
 
-        <div class="extracted-result-panel">
+        <div class="parsed-result-card">
           <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <span style="font-size: 12px; font-weight: 800; color: var(--emerald);">✓ KẾT QUẢ PARSER BÓC TÁCH</span>
-              <span style="font-size: 10px; background: rgba(16, 185, 129, 0.15); color: var(--emerald); padding: 3px 8px; border-radius: 6px; font-weight: 700;">Độ tin cậy: 99.8%</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <span style="font-size: 12px; font-weight: 800; color: var(--sage-green);">✓ KẾT QUẢ BÓC TÁCH</span>
+              <span style="font-size: 10px; background: var(--paper-warm); border: 1px solid var(--border-warm); color: var(--leather-brown); padding: 2px 7px; border-radius: 6px; font-weight: 700;">Độ chính xác: 99.8%</span>
             </div>
 
-            <div class="extracted-item">
-              <div class="extracted-label">Tên cửa hàng (Merchant):</div>
-              <div class="extracted-value" id="res-merchant">HIGHLANDS COFFEE VKU</div>
+            <div class="parsed-row">
+              <div class="parsed-k">Tên cửa hàng (Merchant):</div>
+              <div class="parsed-v" id="res-merchant">HIGHLANDS COFFEE VKU</div>
             </div>
 
-            <div class="extracted-item">
-              <div class="extracted-label">Tổng tiền thanh toán (Total):</div>
-              <div class="extracted-value price" id="res-total">125.000 đ</div>
+            <div class="parsed-row">
+              <div class="parsed-k">Tổng tiền thanh toán (Total):</div>
+              <div class="parsed-v highlight" id="res-total">125.000 đ</div>
             </div>
 
-            <div class="extracted-item">
-              <div class="extracted-label">Ngày hóa đơn (Date):</div>
-              <div class="extracted-value" id="res-date">01/10/2026</div>
+            <div class="parsed-row">
+              <div class="parsed-k">Ngày hóa đơn (Date):</div>
+              <div class="parsed-v" id="res-date">01/10/2026</div>
             </div>
 
-            <div class="extracted-item">
-              <div class="extracted-label">Gợi ý danh mục (Category):</div>
-              <div class="extracted-value" id="res-category" style="color: var(--primary-light);">Ăn uống & Cà phê</div>
+            <div class="parsed-row">
+              <div class="parsed-k">Gợi ý danh mục (Category):</div>
+              <div class="parsed-v" id="res-category" style="color: var(--sage-green);">Ăn uống & Cà phê</div>
             </div>
           </div>
 
-          <div style="border-top: 1px solid var(--card-border); padding-top: 14px; font-size: 11px; color: var(--text-sub);">
-            Dữ liệu trên sẽ được đẩy trực tiếp vào Form Review để người dùng bấm nút <b>Lưu vào SQLite</b>.
+          <div style="border-top: 1px dashed var(--border-warm); padding-top: 12px; font-size: 11.5px; color: var(--ink-muted);">
+            Dữ liệu này được tự động điền vào màn hình Review trước khi lưu vào SQLite.
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 4-Step Process -->
-    <div class="section-head">
-      <div class="section-pill">Quy trình vận hành</div>
-      <h2 class="section-title">Luồng Hoạt Động Khép Kín</h2>
+    <!-- 4 Bước Thực Hiện -->
+    <div class="section-title-wrap">
+      <div class="vintage-label">Quy trình vận hành</div>
+      <h2 class="section-heading">4 Bước Thao Tác Gọn Gàng</h2>
     </div>
 
-    <div class="flow-row">
-      <div class="flow-step">
-        <div class="step-number">BƯỚC 01</div>
+    <div class="steps-row">
+      <div class="step-card">
+        <div class="step-badge">1</div>
         <div class="step-title">Chụp Hóa Đơn</div>
-        <div class="step-desc">Mở camera trong ứng dụng, căn chỉnh góc chụp hóa đơn thanh toán tiền mặt rõ nét.</div>
+        <div class="step-desc">Mở ứng dụng, chụp ảnh hóa đơn mua sắm tiền mặt rõ nét bằng Camera.</div>
       </div>
 
-      <div class="flow-step">
-        <div class="step-number">BƯỚC 02</div>
-        <div class="step-title">ML Kit Quét Offline</div>
-        <div class="step-desc">Google ML Kit quét toàn bộ khối chữ trên thiết bị với độ trễ dưới 800 mili-giây.</div>
+      <div class="step-card">
+        <div class="step-badge">2</div>
+        <div class="step-title">ML Kit Quét Chữ</div>
+        <div class="step-desc">Google ML Kit xử lý trích xuất văn bản offline trên máy trong chớp mắt.</div>
       </div>
 
-      <div class="flow-step">
-        <div class="step-number">BƯỚC 03</div>
-        <div class="step-title">Bóc Tách & Đối Soát</div>
-        <div class="step-desc">Heuristic Regex lọc số tiền, ngày tháng và hiển thị form kiểm tra trước khi lưu.</div>
+      <div class="step-card">
+        <div class="step-badge">3</div>
+        <div class="step-title">Regex Đối Soát</div>
+        <div class="step-desc">Thuật toán bóc số tiền, ngày tháng và hiển thị form kiểm tra trước khi lưu.</div>
       </div>
 
-      <div class="flow-step">
-        <div class="step-number">BƯỚC 04</div>
-        <div class="step-title">Lưu Trữ & Biểu Đồ</div>
-        <div class="step-desc">Dữ liệu ghi vào SQLite, tự động cập nhật biểu đồ Donut & Bar Chart theo danh mục.</div>
+      <div class="step-card">
+        <div class="step-badge">4</div>
+        <div class="step-title">Ghi Vào SQLite</div>
+        <div class="step-desc">Lưu trữ cục bộ an toàn và tự động vẽ biểu đồ chi tiêu CustomPainter.</div>
       </div>
     </div>
 
-    <!-- Final Call To Action -->
-    <div class="final-cta">
+    <!-- Banner Kêu Gọi Tải Cuối Trang -->
+    <div class="cta-banner">
       <h2>Sẵn Sàng Trải Nghiệm Ứng Dụng?</h2>
-      <p>Tải ngay file cài đặt Android APK đã được đóng gói tự động qua CI/CD và cài đặt trực tiếp trên smartphone của bạn.</p>
+      <p>Tải ngay file cài đặt Android APK đã được đóng gói tự động qua CI/CD và cài trực tiếp lên điện thoại của bạn.</p>
 
-      <div class="cta-row" style="margin-bottom: 0;">
-        <a href="https://github.com/pie-12/mob2026-lab3/actions/runs/36830094904/artifacts/11146907475" class="btn-primary-download" target="_blank">
-          <span>📥 Tải File APK (Android Release)</span>
-        </a>
-        <a href="https://github.com/pie-12/mob2026-lab3" class="btn-outline-github" target="_blank">
-          <span>📁 Kho Mã Nguồn GitHub</span>
-        </a>
-      </div>
+      <a href="https://github.com/pie-12/mob2026-lab3/actions/runs/36830094904/artifacts/11146907475" class="btn-light-download" target="_blank">
+        <span>📥 Tải File APK (Android Release)</span>
+      </a>
     </div>
   </main>
 
+  <!-- Chân Trang Vintage -->
   <footer>
     <p>Dự án Mini-Project 3 · Môn Lập trình Di động Đa nền tảng (MOB2026)</p>
     <p style="margin-top: 6px;">Sinh viên thực hiện: <b>Nguyễn Tùng Lâm</b> — MSSV: <b>23IT138</b> — <a href="https://github.com/pie-12/mob2026-lab3" target="_blank">pie-12/mob2026-lab3</a></p>
@@ -1014,7 +1092,7 @@ Tien thua:             75,000</div>
     ];
 
     function switchReceipt(index) {
-      document.querySelectorAll('.sim-tab-btn').forEach((btn, i) => {
+      document.querySelectorAll('.sim-tab').forEach((btn, i) => {
         btn.classList.toggle('active', i === index);
       });
       const data = sampleReceipts[index];
