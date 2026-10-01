@@ -143,7 +143,7 @@ class _ScanScreenState extends State<ScanScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF0284C7),
                       foregroundColor: Colors.white,
-                      shape: RoundedRectangle.circular(14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                       elevation: 0,
                     ),
                     icon: const Icon(Icons.camera_alt),
@@ -159,7 +159,7 @@ class _ScanScreenState extends State<ScanScreen> {
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.white,
                       side: const BorderSide(color: Color(0xFF475569)),
-                      shape: RoundedRectangle.circular(14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
                     icon: const Icon(Icons.photo_library),
                     label: const Text('Chọn ảnh từ Thư viện', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),

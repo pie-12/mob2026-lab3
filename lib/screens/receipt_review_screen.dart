@@ -303,7 +303,7 @@ class _ReceiptReviewScreenState extends State<ReceiptReviewScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF0284C7),
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangle.circular(12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     elevation: 0,
                   ),
                   icon: _isSaving 
