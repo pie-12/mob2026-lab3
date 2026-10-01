@@ -29,13 +29,9 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Regenerate Clean Android Project
+      - name: Configure local.properties
         run: |
-          rm -rf android
-          flutter create . --platforms=android --org=dev.vku
-          sed -i '/<application/i \    <uses-permission android:name="android.permission.CAMERA" />\n    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />\n    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />' android/app/src/main/AndroidManifest.xml
-          sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 21/g' android/app/build.gradle || true
-          sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 21/g' android/app/build.gradle || true
+          echo "flutter.sdk=$FLUTTER_ROOT" > android/local.properties
 
       - name: Get Dependencies
         run: flutter pub get
