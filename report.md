@@ -5,8 +5,9 @@
 **Sinh viên thực hiện:** Nguyễn Tùng Lâm  
 **Mã Sinh Viên:** 23IT138  
 **Đề tài:** Mini-Project 3: Receipt OCR & Expense Tracker (Flutter & Dart)  
-**Repository GitHub:** [https://github.com/pie-12/mob2026-lab3](https://github.com/pie-12/mob2026-lab3)  
-**Video Demo:** [Điền link Google Drive / YouTube video quay thao tác trên điện thoại]  
+**Repository GitHub:** https://github.com/pie-12/mob2026-lab3  
+**Live Demo (GitHub Pages):** https://pie-12.github.io/mob2026-lab3/
+**APK Android:** bấm nút "Tải File APK" trên trang Live Demo (build tự động bằng GitHub Actions)  
 
 ---
 
